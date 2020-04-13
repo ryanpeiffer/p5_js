@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+  	<title>Roulette Simulator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"> </script>
+    <script src="sketch.js"> </script>
+    <script src="betspot.js"> </script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-
   </head>
+
   <body>
-    <script src="sketch.js"></script>
-    <script src="betspot.js"></script>
+    <p> Click anywhere on the betting table to place a bet of $5 on that spot. 
+    Click again to remove it.</p>
+    <p> Once you click 'Spin!' all bets on the table will be locked in. </p>
+    <div id="sketch-holder" style="position: relative; width: 550px; margin: 5px;"> </div>
+    <p> Thanks for playing! </p>
   </body>
 </html>
