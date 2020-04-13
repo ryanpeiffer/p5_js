@@ -36,17 +36,20 @@ wheel_rad = 190
 
 
 function setup() {
-  createCanvas(width = 550, height = 400)
+  var canvas = createCanvas(width = 550, height = 400)
+  canvas.parent('sketch-holder')
   background([1, 67, 30])
 
   //Button to spin the wheel
   spin_button = createButton('Spin!')
+  spin_button.parent('sketch-holder')
   spin_button.position(wheel_x + wheel_rad + 50, 10)
   spin_button.mousePressed(wheelspin)
   
   //checkbox to keep bets rolling
   rolling_checkbox = createCheckbox('Keep bets rolling?', false)
-  rolling_checkbox.position(spin_button.x - 45, spin_button.y + 25)
+  rolling_checkbox.parent('sketch-holder')
+  rolling_checkbox.position(spin_button.x - 4	5, spin_button.y + 25)
   rolling_checkbox.style('color', '#ffffff')
   
   
@@ -113,7 +116,7 @@ function setup() {
   bet_h = 4 * bet_h
   bet_color = [1, 67, 30]
   bet_type = 'third'
-  payout = 3
+  payout = 2
   
   for(i = 1; i <= 3; i++) {
     bet_value = 12*i
@@ -126,7 +129,7 @@ function setup() {
   bet_h = bet_h / 2
   table_y = table_y - (bet_h/2)
   bet_type = 'half'
-  payout = 2
+  payout = 1
   
   betspot = new Betspot(table_x, table_y, bet_w, bet_h, 18, bet_color, payout, bet_type)
   append(betspots, betspot)
@@ -136,7 +139,7 @@ function setup() {
   //even or odd
   table_y = table_y + bet_h
   bet_type = 'evenodd'
-  payout = 2
+  payout = 1
   
   betspot = new Betspot(table_x, table_y, bet_w, bet_h, 'Even', bet_color, payout, bet_type)
   append(betspots, betspot)
@@ -146,7 +149,7 @@ function setup() {
   //red or black
   table_y = table_y + bet_h
   bet_type = 'redblack'
-  payout = 2
+  payout = 1
   
   betspot = new Betspot(table_x, table_y, bet_w, bet_h, 'Red', [255,0,0], payout, bet_type)
   append(betspots, betspot)
