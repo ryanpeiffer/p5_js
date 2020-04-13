@@ -96,7 +96,7 @@ function setup() {
   
   for(var i = 0; i < 36; i++) {
     //determine color of betting spot
-    bet_color =             my_colors[cols[nums.indexOf(str(i+1))]-1]
+    bet_color = my_colors[cols[nums.indexOf(str(i+1))]-1]
     bet_value = i+1
     //initialize betting spot
     betspots[i] = new Betspot(table_x + bet_col*bet_w, table_y + bet_row*bet_h, bet_w, bet_h, bet_value, bet_color, payout, bet_type)
