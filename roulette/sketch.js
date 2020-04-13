@@ -49,7 +49,7 @@ function setup() {
   //checkbox to keep bets rolling
   rolling_checkbox = createCheckbox('Keep bets rolling?', false)
   rolling_checkbox.parent('sketch-holder')
-  rolling_checkbox.position(spin_button.x - 4	5, spin_button.y + 25)
+  rolling_checkbox.position(spin_button.x - 45, spin_button.y + 25)
   rolling_checkbox.style('color', '#ffffff')
   
   
