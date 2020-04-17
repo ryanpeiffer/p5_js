@@ -33,7 +33,7 @@ function setup() {
   background([1, 67, 30])
 
   hit_button = createButton('Hit')
-  hit_button.position(10, height / 2 - 40)
+  hit_button.position(20, height / 2 - 40)
   hit_button.mousePressed(hit)
   hit_button.hide()
 
@@ -47,7 +47,7 @@ function setup() {
   deal_button.mousePressed(deal)
   
   bet_up_button = createButton('+')
-  bet_up_button.position(315, 215)
+  bet_up_button.position(323, 223)
   bet_up_button.mousePressed(bet_up)
   
   bet_down_button = createButton('-')
