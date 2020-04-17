@@ -80,10 +80,6 @@ function Card(suit, value) {
     text(this.text, 0, 0)
     pop()
   }
-  
-  //call this function when we need to change an ace to a 1 instead of an 11
-  this.changeace = function() {
-    this.value = 1  
-  }
+
   
 }
