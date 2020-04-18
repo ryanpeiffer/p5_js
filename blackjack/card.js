@@ -8,6 +8,13 @@ function Card(suit, value) {
   } else {
     this.value = value
   }
+  if(value >= 2 & value <= 6) {
+    this.countval = 1
+  } else if(value >= 7 & value <= 9) {
+    this.countval = 0
+  } else {
+    this.countval = -1
+  }
 
   //values for formatting card
   this.w = 50

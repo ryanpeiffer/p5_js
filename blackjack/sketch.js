@@ -1,20 +1,20 @@
 //inputs for gameplay
 let balance = 200
 let betsize = 5
-let n_decks = 1
+let n_decks = 6
 
 
 //variable definitions
 let card
 let values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 let suits = ['d', 'h', 'c', 's']
-let base_deck = []
 let deck = []
 
 let player_hand = []
 let player_count = 0
 let dealer_hand = []
 let dealer_count = 0
+let running_count
 
 let player_turn = false
 let player_blackjack = false
@@ -54,20 +54,13 @@ function setup() {
   deal_button.mousePressed(deal)
 
   bet_up_button = createButton('+')
-  bet_up_button.position(323, 223)
+  bet_up_button.position(326, 225)
   bet_up_button.mousePressed(bet_up)
 
   bet_down_button = createButton('-')
   bet_down_button.position(bet_up_button.x - 170, bet_up_button.y)
   bet_down_button.mousePressed(bet_down)
 
-  //build a deck of cards
-  for (i = 0; i < suits.length; i++) {
-    for (j = 0; j < values.length; j++) {
-      card = new Card(suits[i], values[j])
-      base_deck.push(card)
-    }
-  }
   shuffle_deck()
 }
 
@@ -140,12 +133,18 @@ function draw() {
   fill(0)
   text("Cards remaining in shoe: " + deck.length, -70, 0.4 * height - 15)
   pop()
+
+  //print hidden text showing the count of the deck
+  if(mouseX > 300 & mouseX < 380 & mouseY > 265 & mouseY < 275) {
+		showCount()
+	}
 }
 
 function hit() {
   card = deck[deck.length - 1]
   player_hand.push(card)
   player_count += card.value
+  running_count += card.countval
   //logic to allow aces to be 1 or 11
   for (i = 0; i < player_hand.length; i++) {
     if (player_hand[i].value == 11 & player_count > 21) {
@@ -161,6 +160,7 @@ function hit() {
 
   if (player_count > 21) {
     dealer_count += dealer_hand[0].value
+    running_count += dealer_hand[0].countval
     score()
   }
   
@@ -170,11 +170,13 @@ function hit() {
 function stand() {
   //add the dealer's first card to their count
   dealer_count += dealer_hand[0].value
+  running_count += dealer_hand[0].countval
 
   while (dealer_count < 17) {
     card = deck[deck.length - 1]
     dealer_hand.push(card)
     dealer_count += card.value
+    running_count += card.countval
     //logic to allow aces to be 1 or 11
     for (i = 0; i < dealer_hand.length; i++) {
       if (dealer_hand[i].value == 11 & dealer_count > 21) {
@@ -193,34 +195,38 @@ function stand() {
 }
 
 function double_down() {
-  payout = betsize*2
+  payout = betsize * 2
   hit()
   stand()
 }
 
 function shuffle_deck() {
   //reset deck
-  deck = []
+  deck.length = 0
+  running_count = 0
 
-  //duplicate base deck until we have n decks
-  for (i = 0; i < n_decks; i++) {
-    deck = deck.concat(base_deck)
-  }
+  //build the deck 
+  //we have to use this disgusting triple loop to avoid shallow copies,
+  //as that mucks up the logic for aces being 1 or 11
+  for(k = 0; k < n_decks; k++) {
+	  for (i = 0; i < suits.length; i++) {
+	    for (j = 0; j < values.length; j++) {
+	      card = new Card(suits[i], values[j])
+	      deck.push(card)
+	    }
+	  }
+	}
+
   shuffle(deck, true) //true modifies referenced array
 
 }
-
 
 function deal() {
   //clear out existing hands
   player_count = 0
   dealer_count = 0
-  while (player_hand.length > 0) {
-    player_hand.pop()
-  }
-  while (dealer_hand.length > 0) {
-    dealer_hand.pop()
-  }
+  player_hand.length = 0
+  dealer_hand.length = 0
 
   //if deck < 10 cards, reshuffle before dealing
   if (deck.length < 10) {
@@ -237,16 +243,28 @@ function deal() {
   dealer_hand.push(deck[deck.length - 1])
   deck.pop()
 
+  //fix AA hands to not show up as 22
+  if(dealer_hand[0].value == 11 & dealer_hand[1].value == 11) {
+  	dealer_hand[0].value = 1
+  }
+  if(player_hand[0].value == 11 & player_hand[1].value == 11) {
+  	player_hand[0].value = 1
+  }
+
   //calculate count for newly dealt hands
-  player_count += player_hand[0].value
-  player_count += player_hand[1].value
-  //don't add dealer's first card until player stands
-  dealer_count += dealer_hand[1].value
+  player_count = player_hand[0].value + player_hand[1].value
+  dealer_count = dealer_hand[1].value //only show value of dealer's second card until player turn ends
+
+  //update running count
+  running_count += player_hand[0].countval
+  running_count += player_hand[1].countval
+  running_count += dealer_hand[1].countval
 
   //check if player was dealt a blackjack
   if (player_count == 21) {
     player_blackjack = true
     dealer_count += dealer_hand[0].value
+    running_count += dealer_hand[0].countval
     score()
   } else {
     //set things up for the player to take their turn
@@ -317,4 +335,14 @@ function bet_down() {
   if (betsize < 5) {
     betsize = min(balance, 5)
   }
+}
+
+function showCount() {
+		push()
+		fill([0,0,255])
+		rectMode(CORNER)
+		textAlign(LEFT, TOP)
+		textSize(10)
+		text("Running count: " + running_count, 300, 265)
+		pop()
 }
