@@ -270,7 +270,9 @@ function deal() {
     //set things up for the player to take their turn
     hit_button.show()
     stand_button.show()
-    dd_button.show()
+    if(balance >= betsize*2){
+    	dd_button.show()
+    }
     deal_button.hide()
     bet_up_button.hide()
     bet_down_button.hide()
