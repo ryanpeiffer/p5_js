@@ -138,6 +138,18 @@ function draw() {
   if(mouseX > 300 & mouseX < 380 & mouseY > 265 & mouseY < 275) {
 		showCount()
 	}
+
+  //easter egg for when balance is at 420
+  if(balance == 420) {
+    push()
+    textSize(9)
+    fill([255,0,0])
+    translate(325,195)
+    rotate(.4)
+    text("Nice", 0, 0)
+    pop()
+  }
+
 }
 
 function hit() {
