@@ -36,25 +36,28 @@ function setup() {
 
   hit_button = createButton('Hit')
   hit_button.parent('sketchHolder')
-  hit_button.position(10, height / 2)
+  buttonStyle(hit_button, '#4CAF50')
+  hit_button.position(12, 178)
   hit_button.mousePressed(hit)
   hit_button.hide()
 
   stand_button = createButton('Stand')
   stand_button.parent('sketchHolder')
+  buttonStyle(stand_button, '#4CAF50')
   stand_button.position(hit_button.x, hit_button.y + 30)
   stand_button.mousePressed(stand)
   stand_button.hide()
   
   dd_button = createButton('Double Down')
   dd_button.parent('sketchHolder')
+  buttonStyle(dd_button, '#4CAF50')
   dd_button.position(hit_button.x, hit_button.y + 60)
   dd_button.mousePressed(double_down)
   dd_button.hide()
 
   deal_button = createButton('Deal')
   deal_button.parent('sketchHolder')
-  deal_button.position(hit_button.x + 25, hit_button.y - 60)
+  deal_button.position(hit_button.x + 20, hit_button.y - 55)
   deal_button.mousePressed(deal)
 
   bet_up_button = createButton('+')
@@ -368,4 +371,18 @@ function showCount() {
 		textSize(10)
 		text("Running count: " + running_count, 300, 265)
 		pop()
+}
+
+//series of styling functions that I will
+//be calling on multiple buttons
+function buttonStyle(button, color) {
+  button.style('width: 80px')
+  button.style('text-align: center')
+  button.style('border-radius: 0px')
+  button.style('border: 1px solid green')
+  button.style('background-color', color)
+  button.style('color: white')
+  button.style('display: block')
+  button.style('padding: 5px 5px')
+
 }
