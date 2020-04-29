@@ -31,35 +31,44 @@ let bet_down_button
 
 
 function setup() {
-  createCanvas(400, 400)
-  background([1, 67, 30])
+  var myCanvas = createCanvas(400, 400)
+  myCanvas.parent('sketchHolder')
 
   hit_button = createButton('Hit')
+  hit_button.parent('sketchHolder')
   hit_button.position(10, height / 2)
   hit_button.mousePressed(hit)
   hit_button.hide()
 
   stand_button = createButton('Stand')
+  stand_button.parent('sketchHolder')
   stand_button.position(hit_button.x, hit_button.y + 30)
   stand_button.mousePressed(stand)
   stand_button.hide()
   
   dd_button = createButton('Double Down')
+  dd_button.parent('sketchHolder')
   dd_button.position(hit_button.x, hit_button.y + 60)
   dd_button.mousePressed(double_down)
   dd_button.hide()
 
   deal_button = createButton('Deal')
+  deal_button.parent('sketchHolder')
   deal_button.position(hit_button.x + 25, hit_button.y - 60)
   deal_button.mousePressed(deal)
 
   bet_up_button = createButton('+')
-  bet_up_button.position(326, 225)
+  bet_up_button.parent('sketchHolder')
+  bet_up_button.position(320, 215)
   bet_up_button.mousePressed(bet_up)
+  bet_up_button.style('border', '2px solid #4CAF50')
 
   bet_down_button = createButton('-')
+  bet_down_button.parent('sketchHolder')
   bet_down_button.position(bet_up_button.x - 170, bet_up_button.y)
   bet_down_button.mousePressed(bet_down)
+  bet_down_button.style('border', '2px solid #f54242')
+
 
   shuffle_deck()
 }

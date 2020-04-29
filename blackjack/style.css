@@ -1,15 +1,22 @@
 html, body {
   margin: 5;
   padding: 0;
+  font-family: 'helvetica';
 
 }
 
 canvas {
   display: block;
+
 }
 
 
 button {
 	text-align: center;
 	border-radius: 8px;
+}
+
+#sketchHolder {
+	position: relative;
+
 }
