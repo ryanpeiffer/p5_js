@@ -7,3 +7,9 @@ html, body {
 canvas {
   display: block;
 }
+
+
+button {
+	text-align: center;
+	border-radius: 8px;
+}
